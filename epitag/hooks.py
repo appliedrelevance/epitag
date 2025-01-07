@@ -1,9 +1,27 @@
+# epitag/hooks.py
+
 app_name = "epitag"
 app_title = "EpiTag"
 app_publisher = "Applied Relevance"
 app_description = "Barcode and NFC printing and scanning support for ERPNext"
 app_email = "geveritt@appliedrelevance.com"
-app_license = "mit"
+app_license = "MIT"
+
+# Jinja Filters
+jinja = {
+    "filters": [
+        "epitag.utils.jinja_filters.barcode"
+    ]
+}
+
+# Jinja
+# ----------
+
+# add methods and filters to jinja environment
+# jinja = {
+# 	"methods": "epitag.utils.jinja_methods",
+# 	"filters": "epitag.utils.jinja_filters"
+# }
 
 # Apps
 # ------------------

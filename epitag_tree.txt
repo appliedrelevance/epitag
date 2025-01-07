@@ -1,0 +1,33 @@
+.
+├── epitag
+│   ├── config
+│   │   └── __init__.py
+│   ├── epitag
+│   │   └── __init__.py
+│   ├── hooks.py
+│   ├── __init__.py
+│   ├── jinja_extensions
+│   │   ├── barcode_filter.py
+│   │   └── __init__.py
+│   ├── modules.txt
+│   ├── patches.txt
+│   ├── public
+│   │   ├── css
+│   │   └── js
+│   ├── __pycache__
+│   │   └── __init__.cpython-311.pyc
+│   ├── templates
+│   │   ├── includes
+│   │   ├── __init__.py
+│   │   └── pages
+│   │       └── __init__.py
+│   ├── utils
+│   │   ├── barcode.py
+│   │   └── __init__.py
+│   └── www
+├── epitag_tree.txt
+├── license.txt
+├── pyproject.toml
+└── README.md
+
+14 directories, 17 files

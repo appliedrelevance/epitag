@@ -28,7 +28,7 @@ def barcode(value, format_type="code128", show_text=True):
             'module_width': 0.25,  # Make bars thinner
             'quiet_zone': 6.5,     # Increase quiet zone (white space) on sides
             'text_distance': 3,    # Increase space between bars and text
-            'font_size': 12,       # Slightly larger font
+            'font_size': 10,       # Slightly larger font
             'center_text': True    # Ensure text is centered
         })
         

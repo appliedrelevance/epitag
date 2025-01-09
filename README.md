@@ -53,14 +53,7 @@ EpiTag is a barcode label printing solution designed specifically for ERPNext. I
    bench restart
    ```
 
-## Configuration
-
-1. Access ERPNext Settings
-2. Navigate to EpiTag Settings
-3. Configure your printer settings:
-   - Printer protocol (EPL, ZPL)
-   - Connection type (Network, USB)
-   - Default templates
+Once installed, the barcode filter will be available in your print formats.
 
 ## Usage
 
@@ -177,11 +170,7 @@ The `barcode` filter supports these format mappings:
 
 ### Batch Printing
 
-1. Select items from any DocType
-2. Use the "Print Labels" action
-3. Choose your template
-4. Specify quantity
-5. Submit to print queue
+Use ERPNext's standard print functionality to print multiple labels at once by selecting multiple records and using the print action.
 
 ## Development
 

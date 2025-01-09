@@ -168,39 +168,7 @@ The `barcode` filter supports these format mappings:
 - JAN → jan
 - PZN → pzn
 
-### Batch Printing
 
-Use ERPNext's standard print functionality to print multiple labels at once by selecting multiple records and using the print action.
-
-## Development
-
-### Setting Up Development Environment
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/appliedrelevance/epitag.git
-   ```
-
-2. Install development dependencies:
-   ```bash
-   bench setup requirements --dev
-   ```
-
-3. Run tests:
-   ```bash
-   bench --site your-site.local run-tests --app epitag
-   ```
-
-### Contributing
-
-1. Fork the repository
-2. Create a new branch for your feature
-3. Write tests for your changes
-4. Submit a pull request
-
-## Documentation
-
-For detailed documentation, please visit our [documentation site](https://epitag.appliedrelevance.com/docs).
 
 ## Support
 

@@ -1,0 +1,47 @@
+/* epitag/public/css/qr_scanner.css */
+
+.qr-scanner-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.scan-region-highlight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+.scan-region-highlight::before,
+.scan-region-highlight::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--primary);
+    border-style: solid;
+}
+
+/* Top left corner */
+.scan-region-highlight::before {
+    top: -2px;
+    left: -2px;
+    border-width: 2px 0 0 2px;
+}
+
+/* Bottom right corner */
+.scan-region-highlight::after {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 2px 2px 0;
+}
+
+#qr-video {
+    border-radius: 8px;
+}

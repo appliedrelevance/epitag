@@ -1,33 +1,45 @@
 # EpiTag
 
-EpiTag is a barcode label printing solution designed specifically for ERPNext. It enables seamless generation, printing, and management of barcode labels directly from your ERPNext system.
+EpiTag is a comprehensive barcode and QR code solution designed specifically for ERPNext. It enables seamless generation, printing, and scanning of various barcode formats and QR codes directly from your ERPNext system.
 
 ## Features
 
-- Barcode Label Printing
-  - Supports multiple barcode formats including:
-    - Code 128
-    - Code 39
-    - EAN-13
-    - EAN-8
-    - UPC-A
-    - ISBN-13
-    - ISBN-10
-    - ISSN
-    - JAN
-    - PZN
-  - Dynamic barcode generation based on ERPNext data
-  - Customizable label templates and layouts
-  - Batch printing capabilities
-  - Print queue management
-  - Network and USB printer support
+### Barcode Generation and Printing
+- Support for multiple barcode formats:
+  - Code 128
+  - Code 39
+  - EAN-13
+  - EAN-8
+  - UPC-A
+  - ISBN-13
+  - ISBN-10
+  - ISSN
+  - JAN
+  - PZN
 
-## Roadmap
+### QR Code Support
+- Multiple QR code formats with configurable error correction levels:
+  - Standard QR (M-15% error correction)
+  - Low density QR (L-7% error correction)
+  - High reliability QR (H-30% error correction)
+- Rich data encoding for complex information
+- Built-in QR code scanning support for web and mobile
 
-- QR Code support for expanded data capacity
-- Additional barcode formats as needed
-- Template designer improvements
+### Print Formats
+- Ready-to-use print format templates:
+  - Barcode Format Demo (showcases all supported formats)
+  - Compact Shelf Label (2.25" x 1.25")
+  - Inventory Sheet with QR Codes
+- Customizable label templates and layouts
+- Print preview functionality
+- Support for batch printing
 
+### Scanning Features
+- Built-in QR code scanner using device camera
+- Automatic field population from scan results
+- Support for both desktop and mobile browsers
+- Visual scanning interface with feedback
+- Integration with Frappe UI components
 
 ## Prerequisites
 
@@ -53,122 +65,59 @@ EpiTag is a barcode label printing solution designed specifically for ERPNext. I
    bench restart
    ```
 
-Once installed, the barcode filter will be available in your print formats.
-
 ## Usage
 
-### Basic Barcode Generation
+### Barcode and QR Code Generation
 
-```python
-from epitag.utils.jinja_filters import barcode
-
-# Generate Code 128 barcode
-svg_string = barcode("123456789", "code128")
-```
-
-### Creating a Print Format
-
-1. Navigate to Settings > Printing > Print Format
-2. Click "New"
-3. Fill in the basic details:
-   - Name (e.g., "Barcode Item Label")
-   - Module (e.g., "Stock")
-   - DocType (e.g., "Item")
-4. Check "Custom Format"
-5. Set "Print Format Type" to "Jinja"
-6. In the HTML editor, create your template using the `barcode` filter
-
-Here's an example template for item labels:
+In your print formats, use the `barcode` filter with the desired format:
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <style>
-        /* Label sizing and layout */
-        .shelf-label {
-            width: 4in;
-            height: 2in;
-            padding: 0.125in;
-            font-family: Arial, sans-serif;
-            page-break-inside: avoid;
-        }
-        
-        /* Barcode container */
-        .barcode-container {
-            text-align: center;
-            margin: 0.125in 0;
-        }
-        
-        .barcode-container svg {
-            max-width: 3in;
-            height: 0.75in;
-        }
-        
-        @media print {
-            @page {
-                size: 4in 2in;
-                margin: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="shelf-label">
-        <div class="item-code">{{ doc.item_code }}</div>
-        <div class="item-name">{{ doc.item_name }}</div>
-        
-        <div class="barcode-container">
-            {%- if doc.barcodes and doc.barcodes|length > 0 -%}
-                {% set barcode_map = {
-                    'EAN-13': 'ean13',
-                    'EAN-8': 'ean8',
-                    'UPC-A': 'upca',
-                    'CODE-128': 'code128',
-                    'CODE-39': 'code39',
-                    'ISBN': 'isbn13',
-                    'ISBN-10': 'isbn10',
-                    'ISSN': 'issn',
-                    'JAN': 'jan',
-                    'PZN': 'pzn'
-                } %}
-                {% set barcode_type = barcode_map.get(doc.barcodes[0].barcode_type, 'code128') %}
-                {{ doc.barcodes[0].barcode|barcode(barcode_type) }}
-            {%- endif -%}
-        </div>
-        
-        <div class="additional-info">
-            <div>UOM: {{ doc.stock_uom }}</div>
-            <div>Stock: {{ frappe.db.get_value("Bin", {"item_code": doc.item_code, 
-                         "warehouse": doc.item_defaults[0].default_warehouse}, 
-                         "actual_qty") if doc.item_defaults else 0 }}</div>
-        </div>
-    </div>
-</body>
-</html>
+<!-- Generate Code 128 barcode -->
+{{ doc.item_code|barcode("code128") }}
+
+<!-- Generate QR code -->
+{{ doc.item_code|barcode("qr") }}
+
+<!-- Generate high-reliability QR code -->
+{{ doc.item_code|barcode("qr-h") }}
 ```
 
-Key features of this template:
-- Uses standard paper sizes (4"x2")
-- Centers the barcode with appropriate dimensions
-- Includes item details and stock information
-- Proper print media handling
-- Automatic barcode type mapping from ERPNext to python-barcode formats
+### QR Code Scanning
 
-The `barcode` filter supports these format mappings:
-- EAN-13 → ean13
-- EAN-8 → ean8
-- UPC-A → upca
-- CODE-128 → code128
-- CODE-39 → code39
-- ISBN → isbn13
-- ISBN-10 → isbn10
-- ISSN → issn
-- JAN → jan
-- PZN → pzn
+The scanning interface is automatically added to Item fields. You can also use it programmatically:
 
+```javascript
+const scanner = new epitag.scanning.QRScanner({
+    callback: (result) => {
+        console.log('Scanned:', result);
+        // Handle the scanned data
+    }
+});
+scanner.show();
+```
 
+### Using Print Formats
+
+1. Navigate to any Item document
+2. Click Print > Format
+3. Select one of the included formats:
+   - Barcode Format Demo
+   - Compact Shelf Label
+   - Inventory Sheet with QR Codes
+
+### Customizing Templates
+
+1. Navigate to Settings > Printing > Print Format
+2. Create a new format or customize existing ones
+3. Use the `barcode` filter in your Jinja templates
+4. Customize CSS for precise control over label dimensions and layout
+
+## Error Correction Levels for QR Codes
+
+- `qr` or `qr-m`: Medium level (15% data recovery)
+- `qr-l`: Low level (7% data recovery)
+- `qr-q`: Quartile level (25% data recovery)
+- `qr-h`: High level (30% data recovery)
 
 ## Support
 

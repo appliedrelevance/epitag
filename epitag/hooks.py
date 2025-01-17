@@ -9,19 +9,15 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_js = [
-    "/assets/epitag/js/qr_scanner.js"
-]
-app_include_css = [
-    "/assets/epitag/css/qr_scanner.css"
-]
+# app_include_js = [
+#     "/assets/epitag/js/qr_scanner.js"
+# ]
+# app_include_css = [
+#     "/assets/epitag/css/qr_scanner.css"
+# ]
 
 # Jinja
-jinja = {
-    "filters": [
-        "epitag.utils.jinja_filters.barcode"
-    ]
-}
+jinja = {"filters": ["epitag.utils.jinja_filters.barcode"]}
 
 # Fixtures
 # --------
@@ -30,12 +26,15 @@ fixtures = [
         "doctype": "Print Format",
         "filters": [
             {
-                "name": ["in", [
-                    "Barcode Format Demo",
-                    "Compact Shelf Label",
-                    "Inventory Sheet with QR Codes"
-                ]]
+                "name": [
+                    "in",
+                    [
+                        "Barcode Format Demo",
+                        "Compact Shelf Label",
+                        "Inventory Sheet with QR Codes",
+                    ],
+                ]
             }
-        ]
+        ],
     }
 ]
